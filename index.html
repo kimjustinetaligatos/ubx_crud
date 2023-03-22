@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en" ng-app="clientApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cars - UBX Crud</title>
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+</head>
+<body ng-controller="CommonController" ng-init="GetCarBrands()">
+<div class="container">
+    <div class="mt-1">
+        <h3><a href="#" class="text-info">Cars</a></h3>
+        <hr>
+    </div>
+    <div class="row mt-1">
+        <div class="col-md-12"><h5>Brands (Category)</h5></div>
+        <div class="col-md-6">
+            <form ng-submit="SetCarBrand()">
+                <input type="text" class="form-control" ng-model="SetCarBrandParam.brand_name">
+                <button class="btn btn-sm btn-primary mt-2">Add</button>
+            </form>
+        </div>
+        <div class="col-md-12 mt-2">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">Brands</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="CarsValues in Cars">
+                    <td scope="row"><span ng-bind="CarsValues.id"></span></td>
+                    <td ng-if="ActiveEdit == CarsValues.id" scope="row">
+                        <form ng-submit="UpdateCarBrand()">
+                            <input type="text" class="form-control" ng-model="UpdateCarBrandParam.brand_name">
+                            <button class="btn btn-sm btn-primary">Save</button>
+                            <button class="btn btn-sm btn-warning" type="button" ng-click="SetActiveEdit(undefined)">Cancel</button>
+                        </form>
+                    </td>
+                    <td ng-if="ActiveEdit != CarsValues.id"><span ng-bind="CarsValues.brand_name"></span></td>
+                    <td>
+                        <button class="btn btn-sm btn-danger" ng-click="DeleteCarBrand(CarsValues.id)">Delete</button>
+                        <button class="btn btn-sm btn-warning" ng-click="SetActiveEdit(CarsValues)">Edit</button>
+                        <button class="btn btn-sm btn-info">View</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-12 mt-2">
+            <hr>
+        </div>
+        <div class="col-md-12"><h5>Models (Items)</h5></div>
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger">Delete</button>
+                        <button class="btn btn-sm btn-warning">Edit</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger">Delete</button>
+                        <button class="btn btn-sm btn-warning">Edit</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Larry</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger">Delete</button>
+                        <button class="btn btn-sm btn-warning">Edit</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="assets/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="assets/js/angular.js"></script>
+<script type="text/javascript" src="app/app.js"></script>
+</html>

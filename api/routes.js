@@ -14,5 +14,17 @@ module.exports = app => {
     // Delete a car with id
     router.delete("/:id", cars.delete);
 
+    // Retrieve all car brand models
+    router.get("/brand/:id", cars.findModelsByID);
+
+    //create new car brand model
+    router.post("/brand", cars.createBrandModel);
+
+    // update car brand with id
+    router.put("/brand", cars.updateBrandModel);
+
+    // Delete a car with id
+    router.delete("/brand/:id", cars.deleteBrandModel);
+
     app.use('/api/cars', router);
 }

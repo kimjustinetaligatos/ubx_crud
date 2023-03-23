@@ -11,7 +11,7 @@
 <body ng-controller="CommonController" ng-init="GetCarBrands()">
 <div class="container">
     <div class="mt-1">
-        <h3><a href="#" class="text-info">Cars</a></h3>
+        <h3><a href="#" class="text-primary">Cars</a></h3>
         <hr>
     </div>
     <div class="row mt-1">
@@ -45,7 +45,7 @@
                     <td>
                         <button class="btn btn-sm btn-danger" ng-click="DeleteCarBrand(CarsValues.id)">Delete</button>
                         <button class="btn btn-sm btn-warning" ng-click="SetActiveEdit(CarsValues)">Edit</button>
-                        <button class="btn btn-sm btn-info">View</button>
+                        <button class="btn btn-sm btn-info" ng-click="SetViewCarBrandModels(CarsValues)">View</button>
                     </td>
                 </tr>
                 </tbody>
@@ -54,8 +54,15 @@
         <div class="col-md-12 mt-2">
             <hr>
         </div>
-        <div class="col-md-12"><h5>Models (Items)</h5></div>
-        <div class="col-md-12">
+        <div class="col-md-12" ng-if="!ViewCarBrandModels"><h5>Please Select Car Brand</h5></div>
+        <div class="col-md-12" ng-if="ViewCarBrandModels"><h5><span ng-bind="ViewCarBrandModels.brand_name"></span> - Models (Items)</h5></div>
+        <div class="col-md-6" ng-if="ViewCarBrandModels">
+            <form ng-submit="SetCarBrandModel()">
+                <input type="text" class="form-control" ng-model="SetCarBrandModelParam.model_name">
+                <button class="btn btn-sm btn-primary mt-2">Add</button>
+            </form>
+        </div>
+        <div class="col-md-12 mt-2" ng-if="ViewCarBrandModels">
             <table class="table">
                 <thead>
                 <tr>
@@ -65,28 +72,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>
-                        <button class="btn btn-sm btn-danger">Delete</button>
-                        <button class="btn btn-sm btn-warning">Edit</button>
+                <tr ng-repeat="CarBrandModelsValues in CarBrandModels">
+                    <th scope="row"><span ng-bind="CarBrandModelsValues.id"></span></th>
+                    <td ng-if="ActiveBrandModelEdit != CarBrandModelsValues.id"><span ng-bind="CarBrandModelsValues.model_name"></span></td>
+                    <td ng-if="ActiveBrandModelEdit == CarBrandModelsValues.id" scope="row">
+                        <form ng-submit="UpdateCarBrandModel()">
+                            <input type="text" class="form-control" ng-model="UpdateCarBrandModelParam.model_name">
+                            <button class="btn btn-sm btn-primary">Save</button>
+                            <button class="btn btn-sm btn-warning" type="button" ng-click="SetActiveBrandModelEdit(undefined)">Cancel</button>
+                        </form>
                     </td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
                     <td>
-                        <button class="btn btn-sm btn-danger">Delete</button>
-                        <button class="btn btn-sm btn-warning">Edit</button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>
-                        <button class="btn btn-sm btn-danger">Delete</button>
-                        <button class="btn btn-sm btn-warning">Edit</button>
+                        <button class="btn btn-sm btn-danger" ng-click="DeleteCarBrandModel(CarBrandModelsValues.id)">Delete</button>
+                        <button class="btn btn-sm btn-warning" ng-click="SetActiveBrandModelEdit(CarBrandModelsValues)">Edit</button>
                     </td>
                 </tr>
                 </tbody>
